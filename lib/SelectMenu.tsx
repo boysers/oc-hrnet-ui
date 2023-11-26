@@ -2,9 +2,9 @@ import { ChangeEvent } from "react";
 import styled from "styled-components";
 
 type SelectMenuProps = {
-	name: string;
-	id: string;
 	options: Array<Option>;
+	name?: string;
+	id?: string;
 	onChange?: OnChange;
 	defaultValue?: string;
 };
@@ -14,7 +14,6 @@ type Option = { value: string; label: string };
 type OnChange = (event: ChangeEvent<HTMLSelectElement>) => void;
 
 const StyledSelect = styled.select`
-	min-width: 196px;
 	font-size: 16px;
 	padding: 6px 16px;
 	background-color: rgba(0, 0, 0, 0.04);
