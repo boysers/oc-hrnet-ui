@@ -1,9 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Modal, DataTable } from "../";
+import { Button,  DatePicker, Modal, SelectMenu, TextField, DataTable } from "../";
 import { EMPLOYEES } from "./employees";
 import { STATES } from "./states";
-import { SelectMenu } from "../lib/SelectMenu";
-import { DatePicker } from "../lib/DatePicker";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +22,7 @@ function App() {
 
 	return (
 		<div>
+			<TextField />
 			<DatePicker />
 			<SelectMenu
 				value={selectedState}
@@ -33,7 +32,10 @@ function App() {
 					label: state.name,
 				}))}
 			/>
-			<button onClick={toggleModal}>open modal</button>
+			<Button onClick={toggleModal} disabled>
+				disabled
+			</Button>
+			<Button onClick={toggleModal}>open modal</Button>
 			<Modal isOpen={isModalOpen} onClose={toggleModal}>
 				<p>Employee Created!</p>
 			</Modal>

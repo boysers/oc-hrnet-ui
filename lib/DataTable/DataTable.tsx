@@ -89,12 +89,12 @@ const StyledTableFooter = styled.tfoot`
 
 			.pagination-wrapper {
 				display: flex;
-				gap: 4px;
+				gap: 0.3rem;
 			}
 
 			button {
 				border: none;
-				font-size: 1rem;
+				font-size: 0.9rem;
 				padding: 8px 16px;
 				cursor: pointer;
 				border-radius: 6px;
@@ -129,7 +129,12 @@ const StyledController = styled.div`
 		position: relative;
 
 		input {
-			font-size: 1rem;
+			font-size: 0.9rem;
+			padding: 0.2rem;
+			padding-right: 28px;
+			border-radius: 4px;
+			border: 1px solid rgba(0, 0, 0, 0.2);
+			background-color: rgba(0, 0, 0, 0.01);
 		}
 
 		.remove-research-datatable {
