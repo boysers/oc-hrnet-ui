@@ -17,7 +17,7 @@ const StyledDataTable = styled.div`
 
 	select {
 		font-size: 0.9rem;
-		padding: 4px 8px;
+		padding: 0.2rem;
 	}
 `;
 
@@ -165,43 +165,55 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 
 	const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-	const handleSortingAsc = useCallback((key: string) => {
-		const sorted = [...sortedData].sort((a, b) => {
-			if (typeof a === "object" && typeof b === "object") {
-				const aValue = (a as any)[key];
-				const bValue = (b as any)[key];
+	const handleSortingAsc = useCallback(
+		(key: string) => {
+			const sorted = [...sortedData].sort((a, b) => {
+				if (typeof a === "object" && typeof b === "object") {
+					const aValue = (a as any)[key];
+					const bValue = (b as any)[key];
 
-				if (typeof aValue === "string" && typeof bValue === "string") {
-					return aValue.localeCompare(bValue, "en", {
-						ignorePunctuation: true,
-					});
+					if (
+						typeof aValue === "string" &&
+						typeof bValue === "string"
+					) {
+						return aValue.localeCompare(bValue, "en", {
+							ignorePunctuation: true,
+						});
+					}
 				}
-			}
 
-			return 0;
-		});
+				return 0;
+			});
 
-		setSortedData(sorted);
-	}, [sortedData]);
+			setSortedData(sorted);
+		},
+		[sortedData]
+	);
 
-	const handleSortingDesc = useCallback((key: string) => {
-		const sorted = [...sortedData].sort((a, b) => {
-			if (typeof a === "object" && typeof b === "object") {
-				const aValue = (a as any)[key];
-				const bValue = (b as any)[key];
+	const handleSortingDesc = useCallback(
+		(key: string) => {
+			const sorted = [...sortedData].sort((a, b) => {
+				if (typeof a === "object" && typeof b === "object") {
+					const aValue = (a as any)[key];
+					const bValue = (b as any)[key];
 
-				if (typeof aValue === "string" && typeof bValue === "string") {
-					return bValue.localeCompare(aValue, "en", {
-						ignorePunctuation: true,
-					});
+					if (
+						typeof aValue === "string" &&
+						typeof bValue === "string"
+					) {
+						return bValue.localeCompare(aValue, "en", {
+							ignorePunctuation: true,
+						});
+					}
 				}
-			}
 
-			return 0;
-		});
+				return 0;
+			});
 
-		setSortedData(sorted);
-	}, [sortedData]);
+			setSortedData(sorted);
+		},
+		[sortedData]
+	);
 
 	const handleItemsPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const count = parseInt(e.target.value, 10);

@@ -1,19 +1,33 @@
-import { useState } from "react";
-import { DatePicker, Modal, DataTable, SelectMenu } from "../";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Modal, DataTable } from "../";
 import { EMPLOYEES } from "./employees";
 import { STATES } from "./states";
+import { SelectMenu } from "../lib/SelectMenu";
+import { DatePicker } from "../lib/DatePicker";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const [selectedState, setSelectedState] = useState(STATES[0].abbreviation);
 
 	const toggleModal = () => {
 		setIsModalOpen((prev) => !prev);
 	};
 
+	const handleSelectedState = (e: ChangeEvent<HTMLSelectElement>) => {
+		setSelectedState(e.target.value);
+	};
+
+	useEffect(() => {
+		console.log(selectedState);
+	}, [selectedState]);
+
 	return (
 		<div>
 			<DatePicker />
 			<SelectMenu
+				value={selectedState}
+				onChange={handleSelectedState}
 				options={STATES.map((state) => ({
 					value: state.abbreviation,
 					label: state.name,
