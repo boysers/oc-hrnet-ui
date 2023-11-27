@@ -7,7 +7,17 @@ import { fileURLToPath } from "node:url";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [react(), dts({ include: ["lib"] })],
+	plugins: [
+		react({
+			include: /\.(jsx|tsx)$/,
+			babel: {
+				plugins: ["styled-components"],
+				babelrc: false,
+				configFile: false,
+			},
+		}),
+		dts({ include: ["lib"] }),
+	],
 	build: {
 		copyPublicDir: false,
 		lib: {
@@ -15,7 +25,7 @@ export default defineConfig({
 			formats: ["es"],
 		},
 		rollupOptions: {
-			external: ["react", "react/jsx-runtime"],
+			external: ["react", "react-dom", "styled-components"],
 			input: Object.fromEntries(
 				// https://rollupjs.org/configuration-options/#input
 				glob
@@ -31,6 +41,11 @@ export default defineConfig({
 			output: {
 				assetFileNames: "assets/[name][extname]",
 				entryFileNames: "[name].js",
+				globals: {
+					react: "React",
+					"react-dom": "ReactDOM",
+					"styled-components": "styled",
+				},
 			},
 		},
 	},
