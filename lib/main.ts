@@ -9,3 +9,5 @@ export { DataTable } from "./DataTable";
 export { TextField } from "./TextField";
 
 export { Button } from "./Button";
+
+export { Fieldset } from "./Fieldset";

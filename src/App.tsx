@@ -7,6 +7,7 @@ import { SelectMenu } from "../lib/SelectMenu";
 import { Button } from "../lib/Button";
 import { Modal } from "../lib/Modal";
 import { DataTable } from "../lib/DataTable";
+import { Fieldset } from "../lib/Fieldset";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,23 +28,26 @@ function App() {
 
 	return (
 		<div>
-			<TextField />
-			<DatePicker />
-			<SelectMenu
-				value={selectedState}
-				onChange={handleSelectedState}
-				options={STATES.map((state) => ({
-					value: state.abbreviation,
-					label: state.name,
-				}))}
-			/>
-			<Button onClick={toggleModal} disabled>
-				disabled
-			</Button>
-			<Button onClick={toggleModal}>open modal</Button>
-			<Modal isOpen={isModalOpen} onClose={toggleModal}>
-				<p>Employee Created!</p>
-			</Modal>
+			<Fieldset legend="Fields">
+				<TextField />
+				<TextField type="number" />
+				<DatePicker />
+				<SelectMenu
+					value={selectedState}
+					onChange={handleSelectedState}
+					options={STATES.map((state) => ({
+						value: state.abbreviation,
+						label: state.name,
+					}))}
+				/>
+				<Button onClick={toggleModal} disabled>
+					disabled
+				</Button>
+				<Button onClick={toggleModal}>open modal</Button>
+				<Modal isOpen={isModalOpen} onClose={toggleModal}>
+					<p>Employee Created!</p>
+				</Modal>
+			</Fieldset>
 			<DataTable
 				data={[...EMPLOYEES, ...EMPLOYEES, ...EMPLOYEES]}
 				// data={[]}

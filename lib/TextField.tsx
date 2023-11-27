@@ -1,11 +1,6 @@
 import styled from "styled-components";
 
-type OmitPropsType = "type";
-
-type TextFieldProps = Omit<
-	React.InputHTMLAttributes<HTMLInputElement>,
-	OmitPropsType
->;
+type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const StyledTextField = styled.input`
 	font-size: 1rem;
