@@ -76,7 +76,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
 			<StyledContainer>
 				<WrapperModal>
 					<div className="close-modal" onClick={onClose}>
-						<CloseIcon />
+						<CloseIcon circle />
 					</div>
 					{children}
 				</WrapperModal>

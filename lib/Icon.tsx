@@ -1,8 +1,14 @@
+type CloseIconProps = {
+	circle?: boolean;
+};
+
 type SortIconProps = {
 	type?: "both" | "asc" | "desc";
 };
 
-export const CloseIcon = () => (
+export const CloseIcon: React.FC<CloseIconProps> = (
+	{ circle } = { circle: false }
+) => (
 	<svg
 		width="30"
 		height="30"
@@ -10,20 +16,20 @@ export const CloseIcon = () => (
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
 	>
-		<circle cx="15" cy="15" r="11.25" fill="#1A1B25" />
+		{circle ? <circle cx="15" cy="15" r="11.25" fill="#1A1B25" /> : null}
 		<path
 			d="M20 10L10 20"
-			stroke="#F2F6F7"
-			stroke-width="1.2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			stroke={circle ? "#F2F6F7" : "#1A1B25"}
+			strokeWidth="1.2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		/>
 		<path
 			d="M10 10L20 20"
-			stroke="#F2F6F7"
-			stroke-width="1.2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
+			stroke={circle ? "#F2F6F7" : "#1A1B25"}
+			strokeWidth="1.2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		/>
 	</svg>
 );

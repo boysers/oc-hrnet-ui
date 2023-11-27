@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { DatePicker, Modal } from "../";
-import { employees } from "./employees";
-import { DataTable } from "../lib/DataTable";
+import { DatePicker, Modal, DataTable, SelectMenu } from "../";
+import { EMPLOYEES } from "./employees";
+import { STATES } from "./states";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,12 +13,19 @@ function App() {
 	return (
 		<div>
 			<DatePicker />
+			<SelectMenu
+				options={STATES.map((state) => ({
+					value: state.abbreviation,
+					label: state.name,
+				}))}
+			/>
 			<button onClick={toggleModal}>open modal</button>
 			<Modal isOpen={isModalOpen} onClose={toggleModal}>
 				<p>Employee Created!</p>
 			</Modal>
 			<DataTable
-				data={[...employees, ...employees, ...employees]}
+				data={[...EMPLOYEES, ...EMPLOYEES, ...EMPLOYEES]}
+				// data={[]}
 				columns={[
 					{ title: "First Name", data: "firstName" },
 					{ title: "Last Name", data: "lastName" },
