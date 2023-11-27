@@ -1,6 +1,6 @@
 {
 	"name": "oc-hrnet-ui",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"type": "module",
 	"keywords": [
 		"react",
@@ -12,8 +12,16 @@
 	"files": [
 		"dist"
 	],
-	"main": "dist/main.js",
-	"types": "dist/main.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/main.d.ts",
+			"default": "./dist/main.js"
+		},
+		"./DataTable": {
+			"types": "./dist/DataTable/index.d.ts",
+			"default": "./dist/DataTable/index.js"
+		}
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/boysers/oc-hrnet-ui.git"

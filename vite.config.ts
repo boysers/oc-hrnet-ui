@@ -16,7 +16,7 @@ export default defineConfig({
 				configFile: false,
 			},
 		}),
-		dts({ include: ["lib"] }),
+		dts({ include: ["lib"], copyDtsFiles: true }),
 	],
 	build: {
 		copyPublicDir: false,
@@ -29,7 +29,7 @@ export default defineConfig({
 			input: Object.fromEntries(
 				// https://rollupjs.org/configuration-options/#input
 				glob
-					.sync("lib/**/*.{ts,tsx}")
+					.sync("lib/**/!(*.d).{ts,tsx}")
 					.map((file) => [
 						relative(
 							"lib",

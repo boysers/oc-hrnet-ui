@@ -1,7 +1,12 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Button,  DatePicker, Modal, SelectMenu, TextField, DataTable } from "../";
 import { EMPLOYEES } from "./employees";
 import { STATES } from "./states";
+import { TextField } from "../lib/TextField";
+import { DatePicker } from "../lib/DatePicker";
+import { SelectMenu } from "../lib/SelectMenu";
+import { Button } from "../lib/Button";
+import { Modal } from "../lib/Modal";
+import { DataTable } from "../lib/DataTable";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
