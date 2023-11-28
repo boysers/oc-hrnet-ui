@@ -1,248 +1,64 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState, useCallback } from "react";
-import styled from "styled-components";
-import { CloseIcon, SortIcon } from "../Icon";
-import { SelectMenu } from "../SelectMenu";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import { CloseIcon, SortIcon } from "../Utils/Icon";
+import { SelectMenu } from "../Inputs/SelectMenu";
+import {
+	StyledController,
+	StyledDataTable,
+	StyledHeadColumn,
+	StyledTable,
+	StyledTableFooter,
+} from "./components";
+import { dataSort, dataSortAsc, filterDataBySearch } from "./helpers";
 
 type DataTableProps = {
 	data: Array<any>;
-	columns: Array<Column>;
+	columns: Array<ColumnItem>;
 };
 
-type Column = { title: string; data: string };
-
-const StyledDataTable = styled.div`
-	display: inline-block;
-
-	select {
-		font-size: 0.9rem;
-		padding: 0.2rem;
-	}
-`;
-
-const StyledTable = styled.table`
-	border-spacing: 0;
-
-	.sorting {
-		background-color: rgba(0, 0, 0, 0.02);
-	}
-
-	thead {
-		font-weight: 700;
-
-		td {
-			border-bottom: 1px solid rgba(0, 0, 0, 0.75);
-			text-align: center;
-			padding: 10px 18px;
-		}
-	}
-
-	tbody {
-		tr {
-			td {
-				padding: 8px 10px;
-				border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-			}
-
-			&:nth-child(2n -1) {
-				background-color: #f9f9f9;
-			}
-
-			&:last-child {
-				td {
-					border-bottom: 1px solid rgba(0, 0, 0, 0.75);
-				}
-			}
-
-			&:hover {
-				background-color: rgba(0, 0, 0, 0.05);
-			}
-		}
-	}
-`;
-
-const StyledHeadColumn = styled.td`
-	cursor: pointer;
-	user-select: none;
-	position: relative;
-
-	svg {
-		position: absolute;
-		top: 50%;
-		right: 0;
-		transform: translateY(-50%);
-	}
-`;
-
-const StyledTableFooter = styled.tfoot`
-	td {
-		div {
-			display: flex;
-			justify-content: space-between;
-			align-items: baseline;
-
-			p {
-				margin: 0;
-				padding-top: 12px;
-			}
-
-			.pagination-wrapper {
-				display: flex;
-				gap: 0.3rem;
-			}
-
-			button {
-				border: none;
-				font-size: 0.9rem;
-				padding: 8px 16px;
-				cursor: pointer;
-				border-radius: 6px;
-
-				&:disabled {
-					cursor: not-allowed;
-				}
-
-				&[data-active="true"] {
-					background-color: rgba(0, 0, 0, 0.45);
-					color: #fff;
-				}
-
-				&:hover:not(&:disabled) {
-					background-color: rgba(0, 0, 0, 0.4);
-					color: #fff;
-				}
-			}
-		}
-	}
-`;
-
-const StyledController = styled.div`
-	display: flex;
-	justify-content: space-between;
-
-	p {
-		margin: 12px 0;
-	}
-
-	.field-research {
-		position: relative;
-
-		input {
-			font-size: 0.9rem;
-			padding: 0.2rem;
-			padding-right: 28px;
-			border-radius: 4px;
-			border: 1px solid rgba(0, 0, 0, 0.2);
-			background-color: rgba(0, 0, 0, 0.01);
-		}
-
-		.remove-research-datatable {
-			position: absolute;
-			top: 0;
-			right: 0;
-			cursor: pointer;
-
-			svg {
-				height: 24px;
-			}
-		}
-	}
-`;
+type ColumnItem = { title: string; data: string };
 
 export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
-	const [sortedData, setSortedData] = useState(data);
-	const [typeSort, setSortType] = useState<"ASC" | "DESC">("ASC");
+	const [sortedData, setSortedData] = useState(
+		dataSortAsc(data, columns[0].data)
+	);
+	// TODO : transform asc and desc to enum
+	const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 	const [indexColumn, setIndexColumn] = useState(0);
 	const [itemsPerPage, setItemsPerPage] = useState(10);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [searchValue, setSearchValue] = useState("");
 
-	const filteredData = sortedData.filter((item) => {
-		return Object.values(item).some((value) =>
-			String(value).toLowerCase().includes(searchValue.toLowerCase())
-		);
-	});
-
 	const indexOfLastItem = currentPage * itemsPerPage;
 	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-	const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
+	const filteredData = useMemo(
+		() => filterDataBySearch(sortedData, searchValue),
+		[searchValue, sortedData]
+	);
+	const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 	const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-	const handleSortingAsc = useCallback(
-		(key: string) => {
-			const sorted = [...sortedData].sort((a, b) => {
-				if (typeof a === "object" && typeof b === "object") {
-					const aValue = (a as any)[key];
-					const bValue = (b as any)[key];
-
-					if (
-						typeof aValue === "string" &&
-						typeof bValue === "string"
-					) {
-						return aValue.localeCompare(bValue, "en", {
-							ignorePunctuation: true,
-						});
-					}
-				}
-
-				return 0;
-			});
-
-			setSortedData(sorted);
-		},
-		[sortedData]
-	);
-
-	const handleSortingDesc = useCallback(
-		(key: string) => {
-			const sorted = [...sortedData].sort((a, b) => {
-				if (typeof a === "object" && typeof b === "object") {
-					const aValue = (a as any)[key];
-					const bValue = (b as any)[key];
-
-					if (
-						typeof aValue === "string" &&
-						typeof bValue === "string"
-					) {
-						return bValue.localeCompare(aValue, "en", {
-							ignorePunctuation: true,
-						});
-					}
-				}
-
-				return 0;
-			});
-
-			setSortedData(sorted);
-		},
-		[sortedData]
-	);
-
 	const handleItemsPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const count = parseInt(e.target.value, 10);
-		setItemsPerPage(count);
+		const length = parseInt(e.target.value, 10);
+		setItemsPerPage(length);
 	};
 
-	const handleClickSort = useCallback(
-		(nameData: string, idx: number) => {
-			if (idx !== indexColumn) {
-				handleSortingAsc(nameData);
-				setSortType("ASC");
-				setIndexColumn(idx);
-				return;
+	const handleSortClick = useCallback(
+		(key: string, idx: number) => {
+			let newSortOrder: "asc" | "desc" = "asc";
+
+			if (idx === indexColumn) {
+				newSortOrder = sortOrder === "asc" ? "desc" : "asc";
 			}
 
-			if (typeSort === "DESC") {
-				handleSortingAsc(nameData);
-				setSortType("ASC");
-				return;
-			}
-			handleSortingDesc(nameData);
-			setSortType("DESC");
+			const sortedAsc = dataSort(data, newSortOrder, key);
+
+			setSortedData(sortedAsc);
+			setSortOrder(newSortOrder);
+			setIndexColumn(idx);
 		},
-		[typeSort, indexColumn]
+		[data, indexColumn, sortOrder]
 	);
 
 	const paginate = (pageNumber: number) => {
@@ -252,10 +68,6 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 	useEffect(() => {
 		paginate(1);
 	}, [itemsPerPage, filteredData.length]);
-
-	useEffect(() => {
-		handleSortingAsc(columns[0].data);
-	}, [columns[0].data]);
 
 	return (
 		<div>
@@ -301,12 +113,12 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 									key={column.data}
 									tabIndex={0}
 									onClick={() => {
-										handleClickSort(column.data, idx);
+										handleSortClick(column.data, idx);
 									}}
 									onKeyDown={(e) => {
 										if ([" ", "Enter"].includes(e.key)) {
 											e.preventDefault();
-											handleClickSort(column.data, idx);
+											handleSortClick(column.data, idx);
 										}
 									}}
 								>
@@ -314,7 +126,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 									<SortIcon
 										type={
 											idx === indexColumn
-												? typeSort === "ASC"
+												? sortOrder === "asc"
 													? "asc"
 													: "desc"
 												: "both"
@@ -388,7 +200,6 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 										<button
 											onClick={() => {
 												if (currentPage <= 1) return;
-
 												paginate(currentPage - 1);
 											}}
 											disabled={currentPage <= 1}
@@ -415,7 +226,6 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 											onClick={() => {
 												if (currentPage >= totalPages)
 													return;
-
 												paginate(currentPage + 1);
 											}}
 											disabled={currentPage >= totalPages}
