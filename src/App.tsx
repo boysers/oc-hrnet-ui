@@ -1,30 +1,25 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { EMPLOYEES } from "./employees";
 import { STATES } from "./states";
-import { TextField } from "../lib/TextField";
-import { DatePicker } from "../lib/DatePicker";
-import { SelectMenu } from "../lib/SelectMenu";
-import { Button } from "../lib/Button";
-import { Modal } from "../lib/Modal";
+import { TextField } from "../lib/Inputs/TextField";
+import { DatePicker } from "../lib/Inputs/DatePicker";
+import { SelectMenu } from "../lib/Inputs/SelectMenu";
+import { Button } from "../lib/Inputs/Button";
+import { Modal } from "../lib/Utils/Modal";
 import { DataTable } from "../lib/DataTable";
-import { Fieldset } from "../lib/Fieldset";
+import { Fieldset } from "../lib/Layout/Fieldset";
 
 function App() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
 	const [selectedState, setSelectedState] = useState(STATES[0].abbreviation);
 
-	const toggleModal = () => {
+	const handleToggleModal = () => {
 		setIsModalOpen((prev) => !prev);
 	};
 
 	const handleSelectedState = (e: ChangeEvent<HTMLSelectElement>) => {
 		setSelectedState(e.target.value);
 	};
-
-	useEffect(() => {
-		console.log(selectedState);
-	}, [selectedState]);
 
 	return (
 		<div>
@@ -40,11 +35,11 @@ function App() {
 						label: state.name,
 					}))}
 				/>
-				<Button onClick={toggleModal} disabled>
+				<Button onClick={handleToggleModal} disabled>
 					disabled
 				</Button>
-				<Button onClick={toggleModal}>open modal</Button>
-				<Modal isOpen={isModalOpen} onClose={toggleModal}>
+				<Button onClick={handleToggleModal}>open modal</Button>
+				<Modal isOpen={isModalOpen} onClose={handleToggleModal}>
 					<p>Employee Created!</p>
 				</Modal>
 			</Fieldset>

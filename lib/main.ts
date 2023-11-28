@@ -1,13 +1,13 @@
-export { DatePicker } from "./DatePicker";
+export { DatePicker } from "./Inputs";
 
-export { Modal } from "./Modal";
+export { Modal } from "./Utils";
 
-export { SelectMenu } from "./SelectMenu";
+export { SelectMenu } from "./Inputs";
 
 export { DataTable } from "./DataTable";
 
-export { TextField } from "./TextField";
+export { TextField } from "./Inputs";
 
-export { Button } from "./Button";
+export { Button } from "./Inputs";
 
-export { Fieldset } from "./Fieldset";
+export { Fieldset } from "./Layout";
