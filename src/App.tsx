@@ -44,7 +44,7 @@ function App() {
 				</Modal>
 			</Fieldset>
 			<DataTable
-				data={[...EMPLOYEES, ...EMPLOYEES, ...EMPLOYEES]}
+				data={EMPLOYEES}
 				// data={[]}
 				columns={[
 					{ title: "First Name", data: "firstName" },

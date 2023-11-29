@@ -42,6 +42,8 @@ const App = () => {
 };
 ```
 
+![Tableau d'exemple](/examples/example_datatable.jpg "Tableau")
+
 #### Propriétés
 
 -   `data` : (Array, requis) - Tableau des données à afficher.
