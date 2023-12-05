@@ -65,15 +65,11 @@ const WrapperModal = styled.div`
  *   setIsOpen((prev) => !prev);
  * };
  *
- * return (
- *   <div>
- *     <button onClick={handleToggleModal}>Ouvrir la modal</button>
- *     <Modal isOpen={isOpen} onClose={handleToggleModal}>
- *       // Contenu de la modal
- *     </Modal>
- *   </div>
- * );
- * 
+ * <button onClick={handleToggleModal}>Ouvrir la modal</button>
+ * <Modal isOpen={isOpen} onClose={handleToggleModal}>
+ *   // Contenu de la modal
+ * </Modal>
+ *
  * @see [Lien vers la documentation](https://github.com/boysers/oc-hrnet-ui#modal)
  */
 export const Modal: React.FC<ModalProps> = (props) => {

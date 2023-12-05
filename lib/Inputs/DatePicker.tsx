@@ -10,6 +10,23 @@ const StyledInputDate = styled.input`
 	background-color: rgba(0, 0, 0, 0.01);
 `;
 
+/**
+ * `DatePicker` est un composant React qui encapsule un champ de saisie de type date.
+ *
+ * Props:
+ *  - Accepte toutes les props d'un élément input HTML standard, sauf `type`.
+ *
+ * @example
+ * const [selectedDate, setSelectedDate] = useState(null);
+ *
+ * const handleDateChange = (event) => {
+ *   setSelectedDate(event.target.value);
+ * };
+ *
+ * <DatePicker value={selectedDate} onChange={handleDateChange} />;
+ *
+ * @see [Lien vers la documentation](https://github.com/boysers/oc-hrnet-ui#datepicker)
+ */
 export const DatePicker: React.FC<
 	Omit<React.InputHTMLAttributes<HTMLInputElement>, OmitPropsType>
 > = (props) => {
