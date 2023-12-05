@@ -73,6 +73,8 @@ const WrapperModal = styled.div`
  *     </Modal>
  *   </div>
  * );
+ * 
+ * @see [Lien vers la documentation](https://github.com/boysers/oc-hrnet-ui#modal)
  */
 export const Modal: React.FC<ModalProps> = (props) => {
 	const { isOpen, onClose, children } = props;

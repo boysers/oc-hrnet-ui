@@ -46,6 +46,8 @@ type ColumnItem = { title: string; data: string };
  * ];
  *
  * <DataTable data={data} columns={columns} />
+ *
+ * @see [Lien vers la documentation](https://github.com/boysers/oc-hrnet-ui#datatable)
  */
 export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 	const [sortedData, setSortedData] = useState(
