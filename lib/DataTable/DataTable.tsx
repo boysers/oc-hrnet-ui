@@ -11,6 +11,11 @@ import {
 } from "./components";
 import { dataSort, dataSortAsc, filterDataBySearch } from "./helpers";
 
+enum SortOrder {
+	Ascending = "asc",
+	Descending = "desc",
+}
+
 type DataTableProps = {
 	data: Array<any>;
 	columns: Array<ColumnItem>;
@@ -22,8 +27,7 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 	const [sortedData, setSortedData] = useState(
 		dataSortAsc(data, columns[0].data)
 	);
-	// TODO : transform asc and desc to enum
-	const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+	const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Ascending);
 	const [indexColumn, setIndexColumn] = useState(0);
 	const [itemsPerPage, setItemsPerPage] = useState(10);
 	const [currentPage, setCurrentPage] = useState(1);
@@ -46,10 +50,13 @@ export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 
 	const handleSortClick = useCallback(
 		(key: string, idx: number) => {
-			let newSortOrder: "asc" | "desc" = "asc";
+			let newSortOrder: SortOrder = SortOrder.Ascending;
 
 			if (idx === indexColumn) {
-				newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+				newSortOrder =
+					sortOrder === SortOrder.Ascending
+						? SortOrder.Descending
+						: SortOrder.Ascending;
 			}
 
 			const sortedAsc = dataSort(data, newSortOrder, key);
