@@ -1,10 +1,12 @@
 {
 	"name": "oc-hrnet-ui",
-	"version": "0.0.16",
+	"description": "La bibliothèque HRnet UI propose des composants React similaires à DataTables de jQuery, incluant Modal, DatePicker, et SelectMenu.",
+	"version": "0.0.18",
 	"type": "module",
 	"keywords": [
 		"react",
-		"typescript"
+		"typescript",
+		"datatable"
 	],
 	"author": {
 		"name": "boysers"
