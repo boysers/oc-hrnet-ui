@@ -1,6 +1,6 @@
 # HRnet UI
 
-La bibliothèque HRnet UI est un ensemble de composants React qui offre des fonctionnalités similaires au plugin DataTables pour jQuery, mais sous forme de composants React. 
+La bibliothèque HRnet UI est un ensemble de composants React qui offre des fonctionnalités similaires au plugin DataTables pour jQuery, mais sous forme de composants React.
 
 En plus, elle propose également des composants supplémentaire comme : Modal, DatePicker et SelectMenu.
 
@@ -93,7 +93,19 @@ const App = () => {
 		setSelectedOption(event.target.value);
 	};
 
-	return <SelectMenu value={selectedOption} onChange={handleOptionChange} />;
+	const options = [
+		{ value: "option1", label: "Option 1" },
+		{ value: "option2", label: "Option 2" },
+		// ...autres options
+	];
+
+	return (
+		<SelectMenu
+			options={options}
+			value={selectedOption}
+			onChange={handleOptionChange}
+		/>
+	);
 };
 ```
 
