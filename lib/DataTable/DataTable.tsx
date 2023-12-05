@@ -23,6 +23,30 @@ type DataTableProps = {
 
 type ColumnItem = { title: string; data: string };
 
+/**
+ * Le composant `DataTable` affiche un tableau de données avec tri, recherche, et pagination.
+ * Il prend `data` et `columns` comme props pour rendre un tableau interactif.
+ *
+ * `data` est un tableau d'objets représentant les données à afficher.
+ *
+ * `columns` spécifie les colonnes du tableau, chacune définie par un titre et un identifiant de données.
+ *
+ * @example
+ * const data = [
+ *   { firstName: "John", lastName: "Doe", age: 30, city: "New York" },
+ *   { firstName: "Jane", lastName: "Doe", age: 28, city: "Los Angeles" },
+ *   // ... autres données
+ * ];
+ *
+ * const columns = [
+ *   { title: "First Name", data: "firstName" },
+ *   { title: "Last Name", data: "lastName" },
+ *   { title: "Age", data: "age" },
+ *   { title: "City", data: "city" },
+ * ];
+ *
+ * <DataTable data={data} columns={columns} />
+ */
 export const DataTable: React.FC<DataTableProps> = ({ data, columns }) => {
 	const [sortedData, setSortedData] = useState(
 		dataSortAsc(data, columns[0].data)
