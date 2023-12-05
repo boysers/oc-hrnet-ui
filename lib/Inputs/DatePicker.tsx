@@ -25,7 +25,7 @@ const StyledInputDate = styled.input`
  *
  * <DatePicker value={selectedDate} onChange={handleDateChange} />;
  *
- * @see [Lien vers la documentation](https://github.com/boysers/oc-hrnet-ui#datepicker)
+ * @see https://github.com/boysers/oc-hrnet-ui#datepicker
  */
 export const DatePicker: React.FC<
 	Omit<React.InputHTMLAttributes<HTMLInputElement>, OmitPropsType>

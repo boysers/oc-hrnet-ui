@@ -41,7 +41,7 @@ const StyledSelect = styled.select`
  *
  * <SelectMenu options={options} value={selectedOption} onChange={handleOptionChange} />;
  *
- * @see [https://github.com/boysers/oc-hrnet-ui#selectmenu](https://github.com/boysers/oc-hrnet-ui#selectmenu)
+ * @see https://github.com/boysers/oc-hrnet-ui#selectmenu
  */
 export const SelectMenu: React.FC<SelectMenuProps> = (props) => {
 	const { options, ...rest } = props;
