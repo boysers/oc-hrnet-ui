@@ -51,6 +51,29 @@ const WrapperModal = styled.div`
 	}
 `;
 
+/**
+ * `Modal` est un composant React pour afficher une fenêtre modale.
+ * Props:
+ *  - `isOpen`: Booléen qui détermine si le modal est ouvert ou fermé.
+ *  - `onClose`: Fonction appelée pour fermer le modal.
+ *  - `children`: Éléments enfants à afficher dans la modale.
+ *
+ * @example
+ * const [isOpen, setIsOpen] = useState(false);
+ *
+ * const handleToggleModal = () => {
+ *   setIsOpen((prev) => !prev);
+ * };
+ *
+ * return (
+ *   <div>
+ *     <button onClick={handleToggleModal}>Ouvrir la modal</button>
+ *     <Modal isOpen={isOpen} onClose={handleToggleModal}>
+ *       // Contenu de la modal
+ *     </Modal>
+ *   </div>
+ * );
+ */
 export const Modal: React.FC<ModalProps> = (props) => {
 	const { isOpen, onClose, children } = props;
 
